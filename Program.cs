@@ -217,12 +217,13 @@ namespace Forca
 
                     for (int i = 0; i < palavraSorteada.Length; i++)
                     {
-                        if (letrasSorteadas[i] == letraDigitada && progresso[i] == '_')
+                        if (letrasSorteadas[i] == letraDigitada)
                         {
                             progresso[i] = letraDigitada;
                             acertou = true;
                         }
                     }
+
                     if (acertou == false)
                     {
                         vidas--;
@@ -350,7 +351,7 @@ namespace Forca
             {
                 SetCursorPosition(30, 2); Write("Player 1");
                 SetCursorPosition(30, 22); Write("Digite uma palavra: ");
-                wordP1 = ReadLine();
+                wordP1 = ReadLine().ToUpper();
             }
 
 
@@ -361,168 +362,353 @@ namespace Forca
             {
                 SetCursorPosition(30, 2); Write("Player 2");
                 SetCursorPosition(30, 22); Write("Digite uma palavra: ");
-                wordP2 = ReadLine();
+                wordP2 = ReadLine().ToUpper();
             }
 
-            Player1(wordP1, wordP2);
+            GameState(wordP1, wordP2);
 
         }
 
-        static void Player1(string wordP1, string wordP2)
+        static void GameState(string wordP1, string wordP2)
         {
+            //Variables Player 1
             char[] sortLettersP2 = wordP2.ToCharArray();
-            char[] progressoP2 = new char[sortLettersP2.Length];
-            List<char> lettersP2 = new List<char>();
+            char[] guessedLettersP1 = new char[sortLettersP2.Length];
             int lifesP1 = 6;
             char typedLetterP1;
-            int vLifesP1 = 7;
-            vLifesP1--;
+            bool acertouP1 = false;
+            string LettersP1 = "";
+
+            //Variables Player 2
+            char[] sortLettersP1 = wordP1.ToCharArray();
+            char[] guessedLettersP2 = new char[sortLettersP1.Length];
+            int lifesP2 = 6;
+            char typedLetterP2;
+            bool acertouP2 = false;
+            string LettersP2 = "";
+
+            //Global Variables
+            bool gameWin = false;
 
             for (int i = 0; i < wordP2.Length; i++)
             {
-                progressoP2[i] = '_';
+                guessedLettersP1[i] = '_';
             }
-
-            SetCursorPosition(30, 2); Write("Player 1");
-
-            while (vLifesP1 == lifesP1)
-            {
-                SetCursorPosition(55, 5); Write("Vidas restantes: " + lifesP1);
-
-                SetCursorPosition(25, 11); Write("┌"); SetCursorPosition(26, 11); Write("─"); SetCursorPosition(27, 11); Write("─");
-                SetCursorPosition(25, 12); Write("│");
-                SetCursorPosition(25, 13); Write("│");
-                SetCursorPosition(25, 14); Write("│");
-
-                SetCursorPosition(30, 14); Write(progressoP2);
-
-                janela(1, 21, 78, 23, 3, 0, 'd');
-                SetCursorPosition(30, 22); WriteLine("Digite uma letra: ");
-                SetCursorPosition(60, 22); string input = ReadLine();
-
-                bool acertou = false;
-
-                if (char.TryParse(input, out typedLetterP1))
-                {
-                    for (int i = 0; i < wordP2.Length; i++)
-                    {
-                        if (sortLettersP2[i] == typedLetterP1)
-                        {
-                            progressoP2[i] = typedLetterP1;
-                            acertou = true;
-                        }
-                    }
-                    if (acertou == false)
-                    {
-                        lifesP1--;
-                        Thread.Sleep(1500);
-                        string completedWordP2 = new string(progressoP2);
-                        SetCursorPosition(30, 14); Write(completedWordP2);
-                        Clear();
-                        janela(0, 0, 79, 24, 3, 0, 'd');
-                        janela(1, 1, 78, 3, 3, 0, 'd');
-                        janela(1, 21, 78, 23, 3, 0, 'd');
-                        Player2(wordP1, wordP2);
-                    }
-                    else
-                    {
-
-                    }
-                }
-
-                else if (int.TryParse(input, out int num))
-                {
-                    janela(1, 21, 78, 23, 3, 0, 'd');
-                    SetCursorPosition(20, 22); Write("NÚMEROS NÃO SÃO PERMITIDOS NESTE MODO!!");
-                    Thread.Sleep(2000);
-                }
-
-                else
-                {
-                    janela(1, 21, 78, 23, 3, 0, 'd');
-                    SetCursorPosition(20, 22); Write("SOMENTE LETRAS SÃO PERMITIDAS NESTE MODO");
-                    Thread.Sleep(2000);
-                }
-            }
-        }
-
-        static void Player2(string wordP1, string wordP2)
-        {
-            char[] sortLettersP1 = wordP1.ToCharArray();
-            char[] progressoP1 = new char[sortLettersP1.Length];
-            List<char> lettersP1 = new List<char>();
-            int lifesP2 = 6;
-            char typedLetterP2;
-            int vLifesP2 = 7;
-            vLifesP2--;
 
             for (int i = 0; i < wordP1.Length; i++)
             {
-                progressoP1[i] = '_';
+                guessedLettersP2[i] = '_';
             }
 
-            SetCursorPosition(30, 2); Write("Player 2");
-
-            while (vLifesP2 == lifesP2)
+            while (gameWin == false)
             {
+                Clear();
+                janela(0, 0, 79, 24, 3, 0, 'd');
+                janela(1, 1, 78, 3, 3, 0, 'd');
 
-                SetCursorPosition(55, 5); Write("Vidas restantes: " + lifesP2);
-
-                SetCursorPosition(25, 11); Write("┌"); SetCursorPosition(26, 11); Write("─"); SetCursorPosition(27, 11); Write("─");
-                SetCursorPosition(25, 12); Write("│");
-                SetCursorPosition(25, 13); Write("│");
-                SetCursorPosition(25, 14); Write("│");
-
-                SetCursorPosition(30, 14); Write(progressoP1);
-
-                janela(1, 21, 78, 23, 3, 0, 'd');
-                SetCursorPosition(30, 22); WriteLine("Digite uma letra: ");
-                SetCursorPosition(60, 22); string input = ReadLine();
-
-                bool acertou = false;
-
-                if (char.TryParse(input, out typedLetterP2))
+                while (lifesP1 > 0 && acertouP1 == true || gameWin == false)
                 {
-                    for (int i = 0; i < wordP1.Length; i++)
+                    switch (lifesP1)
                     {
-                        if (sortLettersP1[i] == typedLetterP2)
-                        {
-                            progressoP1[i] = typedLetterP2;
-                            acertou = true;
-                        }
+                        case 5:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            break;
+                        case 4:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            break;
+                        case 3:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            SetCursorPosition(26, 14);
+                            Write("/");
+                            break;
+                        case 2:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            SetCursorPosition(26, 14);
+                            Write("/");
+                            SetCursorPosition(28, 14);
+                            Write("\\");
+                            break;
+                        case 1:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            SetCursorPosition(26, 14);
+                            Write("/");
+                            SetCursorPosition(28, 14);
+                            Write("\\");
+                            SetCursorPosition(26, 13);
+                            Write("/");
+                            break;
+                        case 0:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            SetCursorPosition(26, 14);
+                            Write("/");
+                            SetCursorPosition(28, 14);
+                            Write("\\");
+                            SetCursorPosition(26, 13);
+                            Write("/");
+                            SetCursorPosition(28, 13);
+                            Write("\\");
+                            break;
                     }
-                    if (acertou == false)
+
+                    SetCursorPosition(30, 2); Write("Player 1");
+
+                    SetCursorPosition(25, 11); Write("┌"); SetCursorPosition(26, 11); Write("─"); SetCursorPosition(27, 11); Write("─");
+                    SetCursorPosition(25, 12); Write("│");
+                    SetCursorPosition(25, 13); Write("│");
+                    SetCursorPosition(25, 14); Write("│");
+
+                    SetCursorPosition(30, 14); Write(guessedLettersP1);
+
+                    SetCursorPosition(3, 5);
+                    Write("Letras digitadas: " + LettersP1);
+
+                    SetCursorPosition(50, 5);
+                    Write("Vidas: " + lifesP1);
+
+                    janela(1, 21, 78, 23, 3, 0, 'd');
+                    SetCursorPosition(30, 22); WriteLine("Digite uma letra: ");
+                    SetCursorPosition(49, 22); string input = ReadLine().ToUpper();
+
+
+                    if (char.TryParse(input, out typedLetterP1))
                     {
-                        lifesP2--;
-                        Thread.Sleep(1500);
-                        Clear();
-                        janela(0, 0, 79, 24, 3, 0, 'd');
-                        janela(1, 1, 78, 3, 3, 0, 'd');
-                        janela(1, 21, 78, 23, 3, 0, 'd');
-                        Player1(wordP1, wordP2);
+                        for (int i = 0; i < wordP2.Length; i++)
+                        {
+                            if (sortLettersP2[i] == typedLetterP1)
+                            {
+                                guessedLettersP1[i] = typedLetterP1;
+                                acertouP1 = true;
+                            }
+                        }
+
+                        if (!LettersP1.Contains(typedLetterP1))
+                        {
+                            LettersP1 += (" " + typedLetterP1);
+                        }
+
+                        else if (LettersP1.Contains(typedLetterP1))
+                        {
+                            LettersP1 += ("" + null);
+                            janela(1, 21, 78, 23, 3, 0, 'd');
+                            SetCursorPosition(20, 22); Write("ESTA LETRA JA FOI DIGITADA");
+                            Thread.Sleep(500);
+                        }
+
+                        if (!guessedLettersP1.Contains(typedLetterP1))
+                        {
+                            lifesP1--;
+                            Thread.Sleep(500);
+                            break;
+                        }
+
                     }
                     else
                     {
+                        janela(1, 21, 78, 23, 3, 0, 'd');
+                        SetCursorPosition(20, 22); Write("SOMENTE LETRAS SÃO PERMITIDAS NESTE MODO");
+                        Thread.Sleep(1000);
+                    }
+
+                    if (!guessedLettersP1.Contains('_'))
+                    {
+                        acertouP1 = false;
+                        gameWin = true;
+                        Clear();
+                        Player1();
+                        break;
+                    }
+
+
+                }
+
+                Clear();
+                janela(0, 0, 79, 24, 3, 0, 'd');
+                janela(1, 1, 78, 3, 3, 0, 'd');
+
+                while (lifesP2 > 0 && acertouP2 == true || gameWin == false)
+                {
+                    if (!guessedLettersP1.Contains('_'))
+                    {
+                        acertouP1 = false;
+                        gameWin = true;
+                        Clear();
+                        Player1();
+                        break;
+                    }
+                    switch (lifesP2)
+                    {
+                        case 5:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            break;
+                        case 4:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            break;
+                        case 3:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            SetCursorPosition(26, 14);
+                            Write("/");
+                            break;
+                        case 2:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            SetCursorPosition(26, 14);
+                            Write("/");
+                            SetCursorPosition(28, 14);
+                            Write("\\");
+                            break;
+                        case 1:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            SetCursorPosition(26, 14);
+                            Write("/");
+                            SetCursorPosition(28, 14);
+                            Write("\\");
+                            SetCursorPosition(26, 13);
+                            Write("/");
+                            break;
+                        case 0:
+                            SetCursorPosition(27, 12);
+                            Write("0");
+                            SetCursorPosition(27, 13);
+                            Write("|");
+                            SetCursorPosition(26, 14);
+                            Write("/");
+                            SetCursorPosition(28, 14);
+                            Write("\\");
+                            SetCursorPosition(26, 13);
+                            Write("/");
+                            SetCursorPosition(28, 13);
+                            Write("\\");
+                            break;
+                    }
+
+                    SetCursorPosition(30, 2); Write("Player 2");
+
+                    SetCursorPosition(25, 11); Write("┌"); SetCursorPosition(26, 11); Write("─"); SetCursorPosition(27, 11); Write("─");
+                    SetCursorPosition(25, 12); Write("│");
+                    SetCursorPosition(25, 13); Write("│");
+                    SetCursorPosition(25, 14); Write("│");
+
+                    SetCursorPosition(30, 14); Write(guessedLettersP2);
+
+                    SetCursorPosition(3, 5);
+                    Write("Letras digitadas: " + LettersP2);
+
+                    SetCursorPosition(50, 5);
+                    Write("Vidas: " + lifesP2);
+
+                    janela(1, 21, 78, 23, 3, 0, 'd');
+                    SetCursorPosition(30, 22); WriteLine("Digite uma letra: ");
+                    SetCursorPosition(49, 22); string input = ReadLine().ToUpper();
+
+                    if (char.TryParse(input, out typedLetterP2))
+                    {
+                        for (int i = 0; i < wordP1.Length; i++)
+                        {
+                            if (sortLettersP1[i] == typedLetterP2)
+                            {
+                                guessedLettersP2[i] = typedLetterP2;
+                                acertouP2 = true;
+                            }
+                        }
+
+                        if (!LettersP2.Contains(typedLetterP2))
+                        {
+                            LettersP2 += (" " + typedLetterP2);
+                        }
+
+                        else if (LettersP2.Contains(typedLetterP2))
+                        {
+                            janela(1, 21, 78, 23, 3, 0, 'd');
+                            SetCursorPosition(20, 22); Write("ESTA LETRA JA FOI DIGITADA");
+                            Thread.Sleep(500);
+                        }
+
+
+                        if (!guessedLettersP2.Contains(typedLetterP2))
+                        {
+                            lifesP2--;
+                            Thread.Sleep(500);
+                            break;
+                        }
 
                     }
+                    else
+                    {
+                        janela(1, 21, 78, 23, 3, 0, 'd');
+                        SetCursorPosition(20, 22); Write("SOMENTE LETRAS SÃO PERMITIDAS NESTE MODO");
+                        Thread.Sleep(1000);
+                    }
+
+
+                    if (!guessedLettersP2.Contains('_'))
+                    {
+                        acertouP2 = false;
+                        gameWin = true;
+                        Clear();
+                        Player2();
+                        break;
+                    }
+
                 }
 
-                else if (int.TryParse(input, out int num))
+                if (lifesP1 == 0 && lifesP2 == 0)
                 {
-                    janela(1, 21, 78, 23, 3, 0, 'd');
-                    SetCursorPosition(20, 22); Write("NÚMEROS NÃO SÃO PERMITIDOS NESTE MODO!!");
-                    Thread.Sleep(2000);
-                }
-
-                else
-                {
-                    janela(1, 21, 78, 23, 3, 0, 'd');
-                    SetCursorPosition(20, 22); Write("SOMENTE LETRAS SÃO PERMITIDAS NESTE MODO");
-                    Thread.Sleep(2000);
+                    Clear();
+                    Empate();
+                    break;
                 }
             }
 
+
+
         }
+
+        static void Player1()
+        {
+            SetCursorPosition(30, 2); Write("Player 1 Venceu");
+            ReadKey();
+        }
+
+        static void Player2()
+        {
+            SetCursorPosition(30, 2); Write("Player 2 Venceu");
+            ReadKey();
+        }
+
+        static void Empate()
+        {
+            SetCursorPosition(30, 2); Write("Empate");
+            ReadKey();
+        }
+
 
     }
 

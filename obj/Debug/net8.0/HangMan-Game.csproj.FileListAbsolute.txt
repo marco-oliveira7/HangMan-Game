@@ -1,0 +1,15 @@
+D:\Marco\BackEnd\HangMan-Game\bin\Debug\net8.0\HangMan-Game.exe
+D:\Marco\BackEnd\HangMan-Game\bin\Debug\net8.0\HangMan-Game.deps.json
+D:\Marco\BackEnd\HangMan-Game\bin\Debug\net8.0\HangMan-Game.runtimeconfig.json
+D:\Marco\BackEnd\HangMan-Game\bin\Debug\net8.0\HangMan-Game.dll
+D:\Marco\BackEnd\HangMan-Game\bin\Debug\net8.0\HangMan-Game.pdb
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\HangMan-Game.GeneratedMSBuildEditorConfig.editorconfig
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\HangMan-Game.AssemblyInfoInputs.cache
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\HangMan-Game.AssemblyInfo.cs
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\HangMan-Game.csproj.CoreCompileInputs.cache
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\HangMan-Game.sourcelink.json
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\HangMan-Game.dll
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\refint\HangMan-Game.dll
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\HangMan-Game.pdb
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\HangMan-Game.genruntimeconfig.cache
+D:\Marco\BackEnd\HangMan-Game\obj\Debug\net8.0\ref\HangMan-Game.dll
