@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HangMan-Game")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09a011437f1c3f6b8d0d473b77e0447c1360e0a2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8bb38e080b77dab58eade3a701b15b874d40da9c")]
 [assembly: System.Reflection.AssemblyProductAttribute("HangMan-Game")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HangMan-Game")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

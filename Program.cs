@@ -69,8 +69,6 @@ namespace Forca
             }
         }
 
-
-
         static void janela(int c1, int l1, int c2, int l2, int corl, int corf, char borda)
         {
             char lv = ' ', csd = ' ', cid = ' ', cie = ' ', cse = ' ', lh = ' ';
@@ -119,7 +117,6 @@ namespace Forca
                 Write(new string(' ', c2 - c1 - 1));
             }
         }
-
 
         static void Bot()
         {
@@ -594,7 +591,8 @@ namespace Forca
 
                         }
                         Clear();
-                        BackgroundColor = ConsoleColor.Black; // Altera a cor de fundo para Preto, novamente
+                        BackgroundColor = ConsoleColor.Black;// Altera a cor de fundo para Preto, novamente
+                        ForegroundColor = ConsoleColor.Blue;
                         break;
                     }
 
@@ -786,6 +784,8 @@ namespace Forca
                         }
                         Clear();
                         BackgroundColor = ConsoleColor.Black;
+                        ForegroundColor = ConsoleColor.Blue;
+                        Clear();
                         break;
                     }
 
@@ -806,6 +806,7 @@ namespace Forca
 
                     Clear();
                     BackgroundColor = ConsoleColor.Black;
+                    ForegroundColor = ConsoleColor.Blue;
                     break;
                 }
             }
